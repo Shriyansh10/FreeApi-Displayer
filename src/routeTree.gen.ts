@@ -16,6 +16,7 @@ import { Route as QuotesRouteImport } from './routes/quotes'
 import { Route as ProductsRouteImport } from './routes/products'
 import { Route as MealsRouteImport } from './routes/meals'
 import { Route as JokesRouteImport } from './routes/jokes'
+import { Route as HomeRouteImport } from './routes/home'
 import { Route as MealIdRouteImport } from './routes/meal/$id'
 
 const VideosRoute = VideosRouteImport.update({
@@ -53,6 +54,11 @@ const JokesRoute = JokesRouteImport.update({
   path: '/jokes',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HomeRoute = HomeRouteImport.update({
+  id: '/home',
+  path: '/home',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MealIdRoute = MealIdRouteImport.update({
   id: '/meal/$id',
   path: '/meal/$id',
@@ -60,6 +66,7 @@ const MealIdRoute = MealIdRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
+  '/home': typeof HomeRoute
   '/jokes': typeof JokesRoute
   '/meals': typeof MealsRoute
   '/products': typeof ProductsRoute
@@ -70,6 +77,7 @@ export interface FileRoutesByFullPath {
   '/meal/$id': typeof MealIdRoute
 }
 export interface FileRoutesByTo {
+  '/home': typeof HomeRoute
   '/jokes': typeof JokesRoute
   '/meals': typeof MealsRoute
   '/products': typeof ProductsRoute
@@ -81,6 +89,7 @@ export interface FileRoutesByTo {
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/home': typeof HomeRoute
   '/jokes': typeof JokesRoute
   '/meals': typeof MealsRoute
   '/products': typeof ProductsRoute
@@ -93,6 +102,7 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
+    | '/home'
     | '/jokes'
     | '/meals'
     | '/products'
@@ -103,6 +113,7 @@ export interface FileRouteTypes {
     | '/meal/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/home'
     | '/jokes'
     | '/meals'
     | '/products'
@@ -113,6 +124,7 @@ export interface FileRouteTypes {
     | '/meal/$id'
   id:
     | '__root__'
+    | '/home'
     | '/jokes'
     | '/meals'
     | '/products'
@@ -124,6 +136,7 @@ export interface FileRouteTypes {
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
+  HomeRoute: typeof HomeRoute
   JokesRoute: typeof JokesRoute
   MealsRoute: typeof MealsRoute
   ProductsRoute: typeof ProductsRoute
@@ -185,6 +198,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof JokesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/home': {
+      id: '/home'
+      path: '/home'
+      fullPath: '/home'
+      preLoaderRoute: typeof HomeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/meal/$id': {
       id: '/meal/$id'
       path: '/meal/$id'
@@ -196,6 +216,7 @@ declare module '@tanstack/react-router' {
 }
 
 const rootRouteChildren: RootRouteChildren = {
+  HomeRoute: HomeRoute,
   JokesRoute: JokesRoute,
   MealsRoute: MealsRoute,
   ProductsRoute: ProductsRoute,

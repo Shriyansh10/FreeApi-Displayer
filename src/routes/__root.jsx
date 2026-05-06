@@ -1,8 +1,17 @@
-import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
+import { createRootRoute, Link, Outlet, redirect } from "@tanstack/react-router";
 
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 
 const navLinks = [
+  // beforeLoad: () => {
+  //   throw redirect({
+  //     to: "/home",
+  //   });
+  // },
+  {
+    to: "/home",
+    label: "Home",
+  },
   {
     to: "/random-cat",
     label: "Random Cat",
@@ -84,5 +93,13 @@ function RootLayout() {
 }
 
 export const Route = createRootRoute({
+  beforeLoad: ({ location }) => {
+    if (location.pathname === "/") {
+      throw redirect({
+        to: "/home",
+      });
+    }
+  },
+
   component: RootLayout,
 });
