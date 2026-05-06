@@ -64,15 +64,17 @@ function RouteComponent() {
         {data.data.map((quote, index) => (
           <article
             key={quote.id}
-            className="rounded-3xl border border-white/10 bg-slate-900/70 p-8 shadow-xl backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-indigo-500/40"
+            className="rounded-3xl border border-white/10 bg-slate-900/70 p-8 shadow-xl backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-indigo-500/40 flex flex-col"
           >
-            <div className="text-5xl leading-none text-indigo-400">“</div>
+            <div className="flex-1">
+              <div className="text-5xl leading-none text-indigo-400">“</div>
 
-            <p className="text-lg leading-8 ml-4 text-slate-200">
-              {quote.content}
-            </p>
+              <p className="text-lg leading-8 ml-4 text-slate-200">
+                {quote.content}
+              </p>
+            </div>
 
-            <div className="mt-8 flex items-center justify-between border-t border-white/10 pt-5">
+            <div className="mt-8 flex flex-col gap-4 items-left justify-between border-t border-white/10 pt-5">
               <div>
                 <p className="text-lg font-semibold text-white">
                   {quote.author}
@@ -82,7 +84,7 @@ function RouteComponent() {
                   Quote #{index + 1}
                 </p>
               </div>
-              <div className="flex justify-between gap-1">
+              <div className="flex gap-1">
                 {quote.tags.map((tag) => (
                   <div
                     key={tag}
@@ -128,35 +130,4 @@ function RouteComponent() {
       </div>
     </section>
   );
-
-  // return (
-  //   <div>
-  //     {data.data.map((quote) => (
-  //       <div key={quote.id}>
-  //         <div>{quote.author}</div>
-  //         <div>{quote.content}</div>
-  //       </div>
-  //     ))}
-  //     <button
-  //       onClick={() =>
-  //         setValues({ ...values, page: Math.max(1, values.page - 1) })
-  //       }
-  //     >
-  //       Previous Page
-  //     </button>
-  //     <button>
-  //       Page {data.page} / {data.totalPages}
-  //     </button>
-  //     <button
-  //       onClick={() =>
-  //         setValues({
-  //           ...values,
-  //           page: Math.min(data.totalPages, values.page + 1),
-  //         })
-  //       }
-  //     >
-  //       Next Page
-  //     </button>
-  //   </div>
-  // );
 }

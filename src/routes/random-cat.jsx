@@ -138,7 +138,7 @@ function RouteComponent() {
       </div>
 
       <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-slate-900/70 shadow-2xl backdrop-blur-xl">
-        <div className="grid lg:grid-cols-2">
+        <div className="grid lg:grid-cols-1">
           <div className="relative overflow-hidden">
             <img
               src={data?.image}
