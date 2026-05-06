@@ -41,23 +41,6 @@ function RouteComponent() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [values.page]);
 
-  // {
-  //   "page": 1,
-  //   "limit": 10,
-  //   "totalPages": 147,
-  //   "previousPage": false,
-  //   "nextPage": true,
-  //   "totalItems": 1465,
-  //   "currentPageItems": 10,
-  //   "data": [
-  //     {
-  //       "categories": [],
-  //       "id": 1,
-  //       "content": "Chuck Norris invented the bolt-action rifle, liquor, sexual intercourse, and football-- in that order."
-  //     },
-  //   ]
-  // },
-
   if (loading) {
     return (
       <div className="flex min-h-[50vh] items-center justify-center">
@@ -67,18 +50,6 @@ function RouteComponent() {
   }
 
   return (
-    // <div>
-    //   {data.data.map((joke) => (
-    //     <div key={joke.id}>{joke.content}</div>
-    //   ))}
-    //   <button onClick={() => setValues({...values, page: Math.max(1, values.page - 1)})}>
-    //     Previous Page
-    //   </button>
-    //   <button>Page {data.page} / {data.totalPages}</button>
-    //   <button onClick={() => setValues({...values, page: Math.min(data.totalPages, values.page + 1)})}>
-    //     Next Page
-    //   </button>
-    // </div>
     <section className="space-y-8">
       <div>
         <h1 className="text-4xl font-bold tracking-tight text-white">

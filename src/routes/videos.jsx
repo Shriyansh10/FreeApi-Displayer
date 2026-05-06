@@ -120,7 +120,7 @@ function RouteComponent() {
           </div>
         }
       >
-        <div className="grid gap-8 sm:grid-cols-2 xl:grid-cols-3">
+        <div className="grid gap-8 sm:grid-cols-2 xl:grid-cols-1">
           {data.data.map((video, index) => {
             const item = video.items.snippet;
             const stats = video.items.statistics;
@@ -211,102 +211,4 @@ function RouteComponent() {
       </InfiniteScroll>
     </section>
   );
-
-  // if (loading) return <div>Loading...</div>;
-
-  // return (
-  //   <InfiniteScroll
-  //     dataLength={data.data.length}
-  //     next={fetchMore}
-  //     hasMore={hasMore}
-  //     loader={<div>Loading...</div>}
-  //     endMessage={<p style={{ textAlign: "center" }}>All items loaded.</p>}
-  //   >
-  //     {data.data.map((video, index) => {
-  //       const item = video.items.snippet;
-  //       return (
-  //         <div key={index}>
-  //           <img src={item.thumbnails.maxres.url} alt="" />
-  //           <h3>{item.title}</h3>
-  //           <div>
-  //             {item.channelTitle} - {getTimeDifference(item.publishedAt)}
-  //           </div>
-  //           <div>
-  //             <div>Description</div>
-  //             {item.description}
-  //           </div>
-  //         </div>
-  //       );
-  //     })}
-  //   </InfiniteScroll>
-  // );
 }
-
-/* "items": {
-          "kind": "youtube#video",
-          "id": "75hqPk6pq5g",
-          "snippet": {
-            "publishedAt": "2023-07-19T13:16:33Z",
-            "channelId": "UCXgGY0wkgOzynnHvSEVmE3A",
-            "title": "Flutter Windows Installation",
-            "description": "https://hitesh.ai/discord\n\nFacebook: https://www.facebook.com/HiteshChoudharyPage\nInstagram: https://instagram.com/hiteshchoudharyofficial\nhomepage: http://www.hiteshChoudhary.com\n\nDisclaimer:\nIt doesn't feel good to have a disclaimer in every video but this is how the world is right now. \nAll videos are for educational purposes and use them wisely. Any video may have a slight mistake, please take decisions based on your research. This video is not forcing anything on you.\n\nAll Amazon links are affiliate links (If any).",
-            "thumbnails": {
-              "default": {
-                "url": "https://i.ytimg.com/vi/75hqPk6pq5g/default.jpg",
-                "width": 120,
-                "height": 90
-              },
-              "medium": {
-                "url": "https://i.ytimg.com/vi/75hqPk6pq5g/mqdefault.jpg",
-                "width": 320,
-                "height": 180
-              },
-              "high": {
-                "url": "https://i.ytimg.com/vi/75hqPk6pq5g/hqdefault.jpg",
-                "width": 480,
-                "height": 360
-              },
-              "standard": {
-                "url": "https://i.ytimg.com/vi/75hqPk6pq5g/sddefault.jpg",
-                "width": 640,
-                "height": 480
-              },
-              "maxres": {
-                "url": "https://i.ytimg.com/vi/75hqPk6pq5g/maxresdefault.jpg",
-                "width": 1280,
-                "height": 720
-              }
-            },
-            "channelTitle": "Hitesh Choudhary",
-            "tags": [
-              "Programming",
-              "javascript",
-              "flutter",
-              "flutter windows"
-            ],
-            "categoryId": "28",
-            "liveBroadcastContent": "none",
-            "localized": {
-              "title": "Flutter Windows Installation",
-              "description": "https://hitesh.ai/discord\n\nFacebook: https://www.facebook.com/HiteshChoudharyPage\nInstagram: https://instagram.com/hiteshchoudharyofficial\nhomepage: http://www.hiteshChoudhary.com\n\nDisclaimer:\nIt doesn't feel good to have a disclaimer in every video but this is how the world is right now. \nAll videos are for educational purposes and use them wisely. Any video may have a slight mistake, please take decisions based on your research. This video is not forcing anything on you.\n\nAll Amazon links are affiliate links (If any)."
-            },
-            "defaultAudioLanguage": "en"
-          },
-          "contentDetails": {
-            "duration": "PT19M35S",
-            "dimension": "2d",
-            "definition": "hd",
-            "caption": "false",
-            "licensedContent": true,
-            "contentRating": {
-
-            },
-            "projection": "rectangular"
-          },
-          "statistics": {
-            "viewCount": "2955",
-            "likeCount": "163",
-            "favoriteCount": "0",
-            "commentCount": "51"
-          }
-        } */
