@@ -1,12 +1,22 @@
 export const fetchData = async (url, page, limit, method, controller) => {
   const query = page ? `?page=${page}&limit=${limit}` : "";
-  const response = await fetch(`${url}${query}`, {
-    method,
-    headers: {
-      accept: "application/json",
-    },
-    signal: controller.signal,
-  });
+  let response;
+  if (controller) {
+    response = await fetch(`${url}${query}`, {
+      method,
+      headers: {
+        accept: "application/json",
+      },
+      signal: controller.signal,
+    });
+  } else {
+    response = await fetch(`${url}${query}`, {
+      method,
+      headers: {
+        accept: "application/json",
+      },
+    });
+  }
   const data = await response.json();
   return data;
 };
