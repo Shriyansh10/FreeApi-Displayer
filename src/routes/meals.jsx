@@ -42,43 +42,101 @@ function RouteComponent() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [values.page]);
 
-  if (loading) return <div>Loading...</div>;
-  // if (!data) return <div>No jokes found.</div>;
-
+  if (loading) {
   return (
+    <div className="flex min-h-[50vh] items-center justify-center">
+      <div className="h-14 w-14 animate-spin rounded-full border-4 border-slate-700 border-t-indigo-500" />
+    </div>
+  );
+}
+
+return (
+  <section className="mx-auto max-w-7xl space-y-8">
     <div>
+      <h1 className="text-4xl font-bold tracking-tight text-white">
+        Meals Collection
+      </h1>
+
+      <p className="mt-2 text-slate-400">
+        Explore delicious cuisines and recipes from around the world.
+      </p>
+    </div>
+
+    <div className="grid gap-8 sm:grid-cols-2 xl:grid-cols-3">
       {data.data.map((meal) => (
-        <div key={meal.idMeal}>
-          <h2>{meal.strMeal}</h2>
-          <img src={meal.strMealThumb} alt={meal.strMeal} width="200" />
-          <p>{meal.strArea} Cuisine</p>
-          <span>Category: {meal.strCategory}</span>
-          <div>
-            <Link to={`/meal/${meal.id}`} params={{ mealId: meal.id }}>
-              <span>View Details</span>
-            </Link>
-            <span>
+        <article
+          key={meal.idMeal}
+          className="group overflow-hidden rounded-3xl border border-white/10 bg-slate-900/70 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:border-indigo-500/40"
+        >
+          <div className="overflow-hidden">
+            <img
+              src={meal.strMealThumb}
+              alt={meal.strMeal}
+              className="h-64 w-full object-cover transition duration-500 group-hover:scale-105"
+            />
+          </div>
+
+          <div className="space-y-5 p-6">
+            <div>
+              <div className="mb-3 flex flex-wrap gap-2">
+                <span className="rounded-full bg-indigo-500/15 px-3 py-1 text-xs font-medium text-indigo-300">
+                  {meal.strArea}
+                </span>
+
+                <span className="rounded-full bg-emerald-500/15 px-3 py-1 text-xs font-medium text-emerald-300">
+                  {meal.strCategory}
+                </span>
+              </div>
+
+              <h2 className="line-clamp-1 text-2xl font-bold text-white">
+                {meal.strMeal}
+              </h2>
+
+              <p className="mt-3 line-clamp-3 leading-7 text-slate-400">
+                {meal.strInstructions}
+              </p>
+            </div>
+
+            <div className="flex items-center justify-between gap-4 pt-2">
+              <Link
+                to={`/meal/${meal.id}`}
+                params={{ mealId: meal.id }}
+                className="rounded-xl bg-indigo-500 px-4 py-3 text-sm font-medium text-white transition hover:bg-indigo-400"
+              >
+                View Details
+              </Link>
+
               <a
                 href={meal.strSource}
                 target="_blank"
                 rel="noopener noreferrer"
+                className="text-sm font-medium text-slate-400 transition hover:text-white"
               >
-                View Recipe Source
+                Recipe Source →
               </a>
-            </span>
+            </div>
           </div>
-        </div>
+        </article>
       ))}
+    </div>
+
+    <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
       <button
         onClick={() =>
-          setValues({ ...values, page: Math.max(1, values.page - 1) })
+          setValues({
+            ...values,
+            page: Math.max(1, values.page - 1),
+          })
         }
+        className="rounded-xl border border-white/10 bg-white/5 px-5 py-3 font-medium text-white transition-all duration-200 hover:border-indigo-400 hover:bg-indigo-500/20 disabled:cursor-not-allowed disabled:opacity-40"
       >
         Previous Page
       </button>
-      <button>
+
+      <div className="rounded-xl border border-white/10 bg-white/5 px-5 py-3 text-sm font-medium text-slate-300">
         Page {data.page} / {data.totalPages}
-      </button>
+      </div>
+
       <button
         onClick={() =>
           setValues({
@@ -86,12 +144,64 @@ function RouteComponent() {
             page: Math.min(data.totalPages, values.page + 1),
           })
         }
+        className="rounded-xl border border-white/10 bg-white/5 px-5 py-3 font-medium text-white transition-all duration-200 hover:border-indigo-400 hover:bg-indigo-500/20"
       >
         Next Page
       </button>
     </div>
-  );
-}
+  </section>
+);
+
+//   if (loading) return <div>Loading...</div>;
+//   // if (!data) return <div>No jokes found.</div>;
+
+//   return (
+//     <div>
+//       {data.data.map((meal) => (
+//         <div key={meal.idMeal}>
+//           <h2>{meal.strMeal}</h2>
+//           <img src={meal.strMealThumb} alt={meal.strMeal} width="200" />
+//           <p>{meal.strArea} Cuisine</p>
+//           <span>Category: {meal.strCategory}</span>
+//           <div>
+//             <Link to={`/meal/${meal.id}`} params={{ mealId: meal.id }}>
+//               <span>View Details</span>
+//             </Link>
+//             <span>
+//               <a
+//                 href={meal.strSource}
+//                 target="_blank"
+//                 rel="noopener noreferrer"
+//               >
+//                 View Recipe Source
+//               </a>
+//             </span>
+//           </div>
+//         </div>
+//       ))}
+//       <button
+//         onClick={() =>
+//           setValues({ ...values, page: Math.max(1, values.page - 1) })
+//         }
+//       >
+//         Previous Page
+//       </button>
+//       <button>
+//         Page {data.page} / {data.totalPages}
+//       </button>
+//       <button
+//         onClick={() =>
+//           setValues({
+//             ...values,
+//             page: Math.min(data.totalPages, values.page + 1),
+//           })
+//         }
+//       >
+//         Next Page
+//       </button>
+//     </div>
+//   );
+// }
 
 // {
 //   "statusCode": 200,
@@ -165,3 +275,4 @@ function RouteComponent() {
 //   "message": "Meals fetched successfully",
 //   "success": true
 // }
+}

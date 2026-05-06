@@ -27,8 +27,6 @@ function RouteComponent() {
       values.method,
       controller,
     );
-
-    console.log("Videos data fetched successfully:", res.data);
     return res;
   };
 
@@ -87,34 +85,161 @@ function RouteComponent() {
     return `${diffInYears} years ago`;
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) {
+    return (
+      <div className="flex min-h-[50vh] items-center justify-center">
+        <div className="h-14 w-14 animate-spin rounded-full border-4 border-slate-700 border-t-indigo-500" />
+      </div>
+    );
+  }
 
   return (
-    <InfiniteScroll
-      dataLength={data.data.length}
-      next={fetchMore}
-      hasMore={hasMore}
-      loader={<div>Loading...</div>}
-      endMessage={<p style={{ textAlign: "center" }}>All items loaded.</p>}
-    >
-      {data.data.map((video, index) => {
-        const item = video.items.snippet;
-        return (
-          <div key={index}>
-            <img src={item.thumbnails.maxres.url} alt="" />
-            <h3>{item.title}</h3>
-            <div>
-              {item.channelTitle} - {getTimeDifference(item.publishedAt)}
-            </div>
-            <div>
-              <div>Description</div>
-              {item.description}
-            </div>
+    <section className="mx-auto max-w-7xl space-y-8">
+      <div>
+        <h1 className="text-4xl font-bold tracking-tight text-white">
+          Video Feed
+        </h1>
+
+        <p className="mt-2 text-slate-400">
+          Endless developer videos with infinite scrolling.
+        </p>
+      </div>
+
+      <InfiniteScroll
+        dataLength={data.data.length}
+        next={fetchMore}
+        hasMore={hasMore}
+        loader={
+          <div className="flex items-center justify-center py-10">
+            <div className="h-12 w-12 animate-spin rounded-full border-4 border-slate-700 border-t-indigo-500" />
           </div>
-        );
-      })}
-    </InfiniteScroll>
+        }
+        endMessage={
+          <div className="py-10 text-center text-slate-400">
+            All videos loaded.
+          </div>
+        }
+      >
+        <div className="grid gap-8 sm:grid-cols-2 xl:grid-cols-3">
+          {data.data.map((video, index) => {
+            const item = video.items.snippet;
+            const stats = video.items.statistics;
+
+            return (
+              <article
+                key={`${video.items.id}-${index}`}
+                className="group overflow-hidden rounded-3xl border border-white/10 bg-slate-900/70 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:border-indigo-500/40"
+              >
+                <div className="relative overflow-hidden">
+                  <img
+                    src={item.thumbnails.maxres.url}
+                    alt={item.title}
+                    className="aspect-video w-full object-cover transition duration-500 group-hover:scale-105"
+                  />
+
+                  <div className="absolute bottom-4 right-4 rounded-lg bg-black/70 px-3 py-1 text-xs font-medium text-white backdrop-blur-md">
+                    {video.items.contentDetails.duration
+                      .replace("PT", "")
+                      .replace("H", "h ")
+                      .replace("M", "m ")
+                      .replace("S", "s")}
+                  </div>
+                </div>
+
+                <div className="space-y-5 p-6">
+                  <div>
+                    <h2 className="line-clamp-2 text-xl font-bold leading-8 text-white">
+                      {item.title}
+                    </h2>
+
+                    <div className="mt-3 flex items-center gap-3">
+                      <span className="rounded-full bg-indigo-500/15 px-3 py-1 text-xs font-medium text-indigo-300">
+                        {item.channelTitle}
+                      </span>
+
+                      <span className="text-sm text-slate-500">
+                        {getTimeDifference(item.publishedAt)}
+                      </span>
+                    </div>
+
+                    <p className="mt-4 line-clamp-4 leading-7 text-slate-400">
+                      {item.description}
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-3 gap-3">
+                    <div className="rounded-2xl border border-white/10 bg-white/5 p-3 text-center">
+                      <p className="text-xs text-slate-400">Views</p>
+
+                      <p className="mt-1 text-sm font-semibold text-white">
+                        {stats.viewCount}
+                      </p>
+                    </div>
+
+                    <div className="rounded-2xl border border-white/10 bg-white/5 p-3 text-center">
+                      <p className="text-xs text-slate-400">Likes</p>
+
+                      <p className="mt-1 text-sm font-semibold text-white">
+                        {stats.likeCount}
+                      </p>
+                    </div>
+
+                    <div className="rounded-2xl border border-white/10 bg-white/5 p-3 text-center">
+                      <p className="text-xs text-slate-400">Comments</p>
+
+                      <p className="mt-1 text-sm font-semibold text-white">
+                        {stats.commentCount}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap gap-2">
+                    {item.tags?.slice(0, 4).map((tag, idx) => (
+                      <span
+                        key={idx}
+                        className="rounded-full border border-indigo-500/20 bg-indigo-500/10 px-3 py-1 text-xs text-indigo-200"
+                      >
+                        #{tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </InfiniteScroll>
+    </section>
   );
+
+  // if (loading) return <div>Loading...</div>;
+
+  // return (
+  //   <InfiniteScroll
+  //     dataLength={data.data.length}
+  //     next={fetchMore}
+  //     hasMore={hasMore}
+  //     loader={<div>Loading...</div>}
+  //     endMessage={<p style={{ textAlign: "center" }}>All items loaded.</p>}
+  //   >
+  //     {data.data.map((video, index) => {
+  //       const item = video.items.snippet;
+  //       return (
+  //         <div key={index}>
+  //           <img src={item.thumbnails.maxres.url} alt="" />
+  //           <h3>{item.title}</h3>
+  //           <div>
+  //             {item.channelTitle} - {getTimeDifference(item.publishedAt)}
+  //           </div>
+  //           <div>
+  //             <div>Description</div>
+  //             {item.description}
+  //           </div>
+  //         </div>
+  //       );
+  //     })}
+  //   </InfiniteScroll>
+  // );
 }
 
 /* "items": {
